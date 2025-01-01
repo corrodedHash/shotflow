@@ -1,4 +1,7 @@
 <script>
+    import SkySelect from "./components/SkySelect.svelte";
+    import SkyCheck from "./components/SkyCheck.svelte";
+
     const aerosolClasses = [
         { id: "normal", display: "Normal", sizemod: 0 },
         { id: "mist", display: "Dunst", sizemod: -1 },
@@ -17,38 +20,13 @@
     let selectedAerosol = $state();
     let selectedLighting = $state();
     let selectedInvisibility = $state(false);
-    let selectedAerosolMod = $derived.by(() => {
-        const found_class = aerosolClasses.find(
-            (v) => v.id === selectedAerosol,
-        );
-        if (found_class === undefined) {
-            return 0;
-        }
-        return found_class.sizemod;
-    });
-
-    let selectedLightingMod = $derived.by(() => {
-        const found_class = lightingClasses.find(
-            (v) => v.id === selectedLighting,
-        );
-        if (found_class === undefined) {
-            return 0;
-        }
-        return found_class.sizemod;
-    });
 </script>
 
 <div>
-    {selectedAerosolMod * -2}
-    {selectedLightingMod * -2}
-    <select bind:value={selectedAerosol}>
-        {#each aerosolClasses as t}
-            <option value={t.id}>{t.display}</option>
-        {/each}
-    </select>
-    <select bind:value={selectedLighting}>
-        {#each lightingClasses as t}
-            <option value={t.id}>{t.display}</option>
-        {/each}
-    </select>
+    {selectedAerosol?.sizemod * -2}
+    {selectedLighting?.sizemod * -2}
+    {selectedInvisibility}
+    <SkySelect options={aerosolClasses} bind:value={selectedAerosol} />
+    <SkySelect options={lightingClasses} bind:value={selectedLighting} />
+    <SkyCheck bind:checked={selectedInvisibility} label="Unsichtbar"/>
 </div>

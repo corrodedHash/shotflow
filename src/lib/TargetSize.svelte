@@ -1,4 +1,6 @@
 <script>
+    import SkySelect from "./components/SkySelect.svelte";
+
     const sizeClasses = [
         {
             id: "extra_tiny",
@@ -50,26 +52,11 @@
         },
     ];
     let selectedTargetSize = $state();
-    let selectedTargetSizeMod = $derived.by(() => {
-        const found_class = 
-         sizeClasses.find((v) => v.id === selectedTargetSize);
-         if (found_class === undefined){return 0}
-         return found_class.mod
-    });
-    let selectedTargetSizeText = $derived.by(() => {
-        const found_class = 
-         sizeClasses.find((v) => v.id === selectedTargetSize);
-         if (found_class === undefined){return 0}
-         return found_class.extraText
-    });
 </script>
 
 <div>
-    {selectedTargetSizeMod}
-    {selectedTargetSizeText}
-    <select bind:value={selectedTargetSize}>
-        {#each sizeClasses as t}
-            <option value={t.id}>{t.display}</option>
-        {/each}
-    </select>
+    {selectedTargetSize?.mod}
+    {selectedTargetSize?.extraText}
+    <SkySelect options={sizeClasses} bind:value={selectedTargetSize} />
+
 </div>

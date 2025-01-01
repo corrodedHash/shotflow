@@ -6,7 +6,6 @@
 <main>
   <TargetBox />
   <CharacterBox />
-  Körperteile <br />
   Wind <br />
   Schnell Schuss <br />
   Zweiter Schuss <br />
