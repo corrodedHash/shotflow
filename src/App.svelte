@@ -1,17 +1,15 @@
 <script>
   import CharacterBox from "./lib/CharacterBox.svelte";
   import TargetBox from "./lib/TargetBox.svelte";
+  import SkyToggle from "./lib/components/SkyToggle.svelte";
+
+  let is_shooting = $state(true);
 </script>
 
 <main>
+  <SkyToggle labelOn="Schuss" labelOff="Wurf" bind:checked={is_shooting} />
   <TargetBox />
   <CharacterBox />
-  Wind <br />
-  Schnell Schuss <br />
-  Zweiter Schuss <br />
-  Berittener Schuss <br />
   Zielbewegung <br />
-  Zielen <br />
   Unter Wasser <br />
-  Wurf/Schuss <br />
 </main>
