@@ -5,6 +5,7 @@
     import ViewSituation from "./ViewSituation.svelte";
     import WindBox from "./WindBox.svelte";
     import CoverBox from "./CoverBox.svelte";
+    import TargetMovement from "./TargetMovement.svelte";
 </script>
 
 <div>
@@ -12,6 +13,7 @@
     <ViewSituation />
     <WindBox />
     <TargetSize />
-    <TargetBody />
+    <TargetBody skilllevel="none" />
     <CoverBox />
+    <TargetMovement />
 </div>

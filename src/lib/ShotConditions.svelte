@@ -1,6 +1,14 @@
 <script>
     import SkyCheck from "./components/SkyCheck.svelte";
 
+    /**
+     * @typedef Props
+     * @property {"none"| "sharpshooter"| "master"} skilllevel Some documentation
+     */
+
+    /** @type {Props} */
+    let { skilllevel } = $props();
+
     let speed_shot = $state(false);
     let second_shot = $state(false);
     let aiming = $state(0);

@@ -8,8 +8,7 @@
 
 <main>
   <SkyToggle labelOn="Schuss" labelOff="Wurf" bind:checked={is_shooting} />
-  <TargetBox />
   <CharacterBox />
-  Zielbewegung <br />
+  <TargetBox />
   Unter Wasser <br />
 </main>
