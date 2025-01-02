@@ -18,6 +18,6 @@
 </script>
 
 <div>
-    <SkySelect options={distanceClasses} bind:value={selectedTargetDistance} />
     {selectedTargetDistance?.mod}
+    <SkySelect options={distanceClasses} bind:value={selectedTargetDistance} />
 </div>

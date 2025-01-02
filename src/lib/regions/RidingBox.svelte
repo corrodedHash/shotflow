@@ -11,16 +11,20 @@
     ];
     let unpreparedHorse = $state(false);
     let selectedHorseSpeed = $state();
-    $effect(() => {
+    let mod_change = $derived.by(() => {
         let mod_change = selectedHorseSpeed?.mod + (unpreparedHorse ? +4 : 0);
         if (!is_shooting) {
             mod_change = Math.round(mod_change / 2);
         }
+        return mod_change;
+    });
+    $effect(() => {
         onModChange(mod_change);
     });
 </script>
 
 <div>
+    {mod_change}
     <SkySelect options={horseSpeedClass} bind:value={selectedHorseSpeed} />
     <SkyCheck
         bind:checked={unpreparedHorse}

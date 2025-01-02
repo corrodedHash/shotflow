@@ -20,18 +20,25 @@
         master: 0,
     };
 
-    $effect(() => {
-        let mod_change = speed_shot_mods[skilllevel];
+    let mod_change = $derived.by(() => {
+        let mod_change = 0;
+        if (speed_shot) {
+            mod_change += speed_shot_mods[skilllevel];
+        }
         if (second_shot) {
             mod_change += is_shooting ? 4 : 2;
         }
         const aiming_factor = skilllevel === "none" ? 2 : 1;
         mod_change += aiming_factor * aiming;
+        return mod_change;
+    });
+    $effect(() => {
         onModChange(mod_change);
     });
 </script>
 
 <div>
+    {mod_change}
     <SkyCheck bind:checked={speed_shot} label="Schnellschuss" />
     <SkyCheck bind:checked={second_shot} label="Zweiter Schuss in Kampfrunde" />
     <div>

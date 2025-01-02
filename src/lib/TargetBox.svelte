@@ -7,7 +7,7 @@
     import CoverBox from "./regions/CoverBox.svelte";
     import TargetMovement from "./regions/TargetMovement.svelte";
 
-    let { mod_change = $bindable(0) } = $props();
+    let { onModChange, skilllevel } = $props();
     let body_mod = $state(0);
     let movement_mod = $state(0);
     let cover_mod = $state(0);
@@ -17,23 +17,62 @@
     let distance_mod = $state(0);
 
     $effect(() => {
-        mod_change =
+        console.log(
+            body_mod,
+            movement_mod,
+            cover_mod,
+            size_mod,
+            wind_mod,
+            view_mod,
+            distance_mod,
+        );
+        onModChange(
             body_mod +
-            movement_mod +
-            cover_mod +
-            size_mod +
-            wind_mod +
-            view_mod +
-            distance_mod;
+                movement_mod +
+                cover_mod +
+                size_mod +
+                wind_mod +
+                view_mod +
+                distance_mod,
+        );
     });
 </script>
 
 <div>
-    <TargetDistance bind:mod_change={distance_mod} />
-    <ViewSituation bind:mod_change={view_mod} />
-    <WindBox bind:mod_change={wind_mod} />
-    <TargetSize bind:mod_change={size_mod} />
-    <TargetBody skilllevel="none" bind:mod_change={body_mod} />
-    <CoverBox bind:mod_change={cover_mod} />
-    <TargetMovement bind:mod_change={movement_mod} />
+    <TargetDistance
+        onModChange={(e) => {
+            distance_mod = e;
+        }}
+    />
+    <ViewSituation
+        onModChange={(e) => {
+            view_mod = e;
+        }}
+    />
+    <WindBox
+        onModChange={(e) => {
+            wind_mod = e;
+        }}
+    />
+    <TargetSize
+        onModChange={(e) => {
+            size_mod = e;
+        }}
+    />
+    <TargetBody
+        {skilllevel}
+        onModChange={(e) => {
+            body_mod = e;
+        }}
+    />
+    <CoverBox
+        onModChange={(e) => {
+            cover_mod = e;
+        }}
+    />
+    <TargetMovement
+        onModChange={(e) => {
+            movement_mod = e;
+        }}
+    />
 </div>

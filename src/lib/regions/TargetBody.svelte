@@ -44,13 +44,13 @@
     let aiming_for_part = $state(false);
     let is_human = $state(true);
 
-    $effect(() => {
-        let mod_change;
+    let mod_change = $derived.by(() => {
         if (aiming_for_part) {
-            mod_change = selectedPart?.mod * factor_map[skilllevel];
-        } else {
-            mod_change = 0;
+            return Math.round(selectedPart?.mod * factor_map[skilllevel]);
         }
+        return 0;
+    });
+    $effect(() => {
         onModChange(mod_change);
     });
 </script>
@@ -60,7 +60,7 @@
     <div>
         {selectedPart?.display} [{selectedPart?.mod}] * {display_map[
             skilllevel
-        ]} [{factor_map[skilllevel]}] = {mod_change}
+        ]} [{factor_map[skilllevel].toFixed(2)}] = {mod_change}
     </div>
     <SkyToggle labelOn="Mensch" labelOff="Vieh" bind:checked={is_human} />
     {#if is_human}
@@ -68,4 +68,4 @@
     {:else}
         <SkySelect options={animal_body_parts} bind:value={selectedPart} />
     {/if}
-{:else}{/if}
+{/if}

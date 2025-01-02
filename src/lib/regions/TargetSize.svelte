@@ -53,7 +53,6 @@
     ];
     let selectedTargetSize = $state();
 
-
     let { onModChange } = $props();
 
     $effect(() => {
@@ -62,6 +61,6 @@
 </script>
 
 <div>
+    {selectedTargetSize?.mod}
     <SkySelect options={sizeClasses} bind:value={selectedTargetSize} />
-
 </div>
