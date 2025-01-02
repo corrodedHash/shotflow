@@ -1,5 +1,5 @@
 <script>
-    import SkySelect from "./components/SkySelect.svelte";
+    import SkySelect from "../components/SkySelect.svelte";
 
     const coverClasses = [
         { id: "none", display: "Keine Deckung", sizemod: 0 },
@@ -8,10 +8,10 @@
     ];
     let selectedCover = $state();
 
-    let { mod_change = $bindable(0) } = $props();
+    let { onModChange } = $props();
 
     $effect(() => {
-        mod_change = selectedCover?.sizemod * -2;
+        onModChange(selectedCover?.sizemod * -2);
     });
 </script>
 

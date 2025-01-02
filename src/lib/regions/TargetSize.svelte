@@ -1,5 +1,5 @@
 <script>
-    import SkySelect from "./components/SkySelect.svelte";
+    import SkySelect from "../components/SkySelect.svelte";
 
     const sizeClasses = [
         {
@@ -54,10 +54,10 @@
     let selectedTargetSize = $state();
 
 
-    let { mod_change = $bindable(0) } = $props();
+    let { onModChange } = $props();
 
     $effect(() => {
-        mod_change = selectedTargetSize?.mod;
+        onModChange(selectedTargetSize?.mod);
     });
 </script>
 

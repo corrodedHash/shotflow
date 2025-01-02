@@ -1,7 +1,7 @@
 <script>
-    import SkySelect from "./components/SkySelect.svelte";
-    import SkyToggle from "./components/SkyToggle.svelte";
-    import SkyCheck from "./components/SkyCheck.svelte";
+    import SkySelect from "../components/SkySelect.svelte";
+    import SkyToggle from "../components/SkyToggle.svelte";
+    import SkyCheck from "../components/SkyCheck.svelte";
 
     /**
      * @typedef Props
@@ -9,7 +9,7 @@
      */
 
     /** @type {Props} */
-    let { skilllevel, mod_change = $bindable(0) } = $props();
+    let { skilllevel, onModChange } = $props();
     const human_body_parts = [
         { id: "head", display: "Kopf", mod: +10 },
         { id: "chest", display: "Brust", mod: +6 },
@@ -45,11 +45,13 @@
     let is_human = $state(true);
 
     $effect(() => {
+        let mod_change;
         if (aiming_for_part) {
             mod_change = selectedPart?.mod * factor_map[skilllevel];
         } else {
             mod_change = 0;
         }
+        onModChange(mod_change);
     });
 </script>
 

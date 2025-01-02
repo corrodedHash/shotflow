@@ -1,11 +1,11 @@
 <script>
-    import TargetDistance from "./TargetDistance.svelte";
-    import TargetSize from "./TargetSize.svelte";
-    import TargetBody from "./TargetBody.svelte";
-    import ViewSituation from "./ViewSituation.svelte";
-    import WindBox from "./WindBox.svelte";
-    import CoverBox from "./CoverBox.svelte";
-    import TargetMovement from "./TargetMovement.svelte";
+    import TargetDistance from "./regions/TargetDistance.svelte";
+    import TargetSize from "./regions/TargetSize.svelte";
+    import TargetBody from "./regions/TargetBody.svelte";
+    import ViewSituation from "./regions/ViewSituation.svelte";
+    import WindBox from "./regions/WindBox.svelte";
+    import CoverBox from "./regions/CoverBox.svelte";
+    import TargetMovement from "./regions/TargetMovement.svelte";
 
     let { mod_change = $bindable(0) } = $props();
     let body_mod = $state(0);

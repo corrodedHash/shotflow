@@ -1,7 +1,7 @@
 <script>
-    import SkySelect from "./components/SkySelect.svelte";
+    import SkySelect from "../components/SkySelect.svelte";
 
-    let { mod_change = $bindable(0) } = $props();
+    let { onModChange } = $props();
 
     const movementClass = [
         { id: "mounted", display: "Fest montiertes Ziel", sizemod: +2 },
@@ -15,11 +15,13 @@
     let selectedMovement = $state();
 
     $effect(() => {
+        let mod_change;
         if (fighting_crowd_hand > 0 || fighting_crowd_sword > 0) {
             mod_change = fighting_crowd_hand * 3 + fighting_crowd_sword * 2;
         } else {
             mod_change = selectedMovement?.sizemod * -2;
         }
+        onModChange(mod_change);
     });
 </script>
 

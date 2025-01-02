@@ -1,10 +1,12 @@
 <script>
-    import SkyCheck from "./components/SkyCheck.svelte";
+    import SkyCheck from "../components/SkyCheck.svelte";
+
+    let { onModChange, onCharacterChange } = $props();
 
     let twilight_sight = $state(false);
     let nightvision = $state(false);
     let distance_sense = $state(false);
-    
+
     let one_eyed = $state(false);
     let colorblind = $state(false);
     let shortsighted = $state(false);
@@ -12,14 +14,39 @@
 
     let sharpshooter = $state(false);
     let mastershooter = $state(false);
+    let skilllevel = $derived.by(() => {
+        if (mastershooter) {
+            return "master";
+        } else if (sharpshooter) {
+            return "sharpshooter";
+        } else {
+            return "none";
+        }
+    });
+    $effect(() => {
+        onCharacterChange({
+            twilight_sight,
+            nightvision,
+            one_eyed,
+            colorblind,
+            shortsighted,
+            nightblind,
+            skilllevel,
+        });
+    });
+    $effect(() => {
+        onModChange(distance_sense ? -2 : 0);
+    });
 </script>
 
 <SkyCheck bind:checked={twilight_sight} label="Dämmerungssicht" />
 <SkyCheck bind:checked={nightvision} label="Nachtsicht" />
 <SkyCheck bind:checked={distance_sense} label="Entfernungssinn" />
+
 <SkyCheck bind:checked={one_eyed} label="Einäugig" />
 <SkyCheck bind:checked={colorblind} label="Farbenblind" />
 <SkyCheck bind:checked={shortsighted} label="Kurzsichtig" />
 <SkyCheck bind:checked={nightblind} label="Nachtblind" />
+
 <SkyCheck bind:checked={sharpshooter} label="Scharfschütze" />
 <SkyCheck bind:checked={mastershooter} label="Meisterschütze" />

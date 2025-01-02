@@ -1,8 +1,8 @@
 <script>
-    import SkySelect from "./components/SkySelect.svelte";
-    import SkyCheck from "./components/SkyCheck.svelte";
+    import SkySelect from "../components/SkySelect.svelte";
+    import SkyCheck from "../components/SkyCheck.svelte";
 
-    let { mod_change = $bindable(0) } = $props();
+    let { onModChange } = $props();
 
     const aerosolClasses = [
         { id: "normal", display: "Normal", sizemod: 0 },
@@ -24,11 +24,12 @@
     let selectedInvisibility = $state(false);
 
     $effect(() => {
-        mod_change =
+        let mod_change =
             selectedAerosol?.sizemod * -2 +
             selectedLighting?.sizemod * -2 +
             (selectedInvisibility ? 8 : 0);
         mod_change = Math.min(8, mod_change);
+        onModChange(mod_change);
     });
 </script>
 

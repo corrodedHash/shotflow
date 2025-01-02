@@ -1,7 +1,7 @@
 <script>
-    import SkySelect from "./components/SkySelect.svelte";
+    import SkySelect from "../components/SkySelect.svelte";
 
-    let { mod_change = $bindable(0) } = $props();
+    let { onModChange } = $props();
 
     const distanceClasses = [
         { id: "sehr_nah", display: "Sehr nah", mod: -2 },
@@ -13,7 +13,7 @@
     let selectedTargetDistance = $state();
 
     $effect(() => {
-        mod_change = selectedTargetDistance?.mod;
+        onModChange(selectedTargetDistance?.mod);
     });
 </script>
 

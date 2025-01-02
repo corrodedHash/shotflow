@@ -1,7 +1,7 @@
 <script>
-    import SkySelect from "./components/SkySelect.svelte";
+    import SkySelect from "../components/SkySelect.svelte";
 
-    let { mod_change = $bindable(0) } = $props();
+    let { onModChange } = $props();
 
     const windStrengthClasses = [
         { id: "none", display: "Kein Wind", mod: 0 },
@@ -11,7 +11,7 @@
     let selectedWindStrength = $state();
 
     $effect(() => {
-        mod_change = selectedWindStrength?.mod;
+        onModChange(selectedWindStrength?.mod);
     });
 </script>
 
