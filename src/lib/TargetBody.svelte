@@ -1,14 +1,15 @@
 <script>
     import SkySelect from "./components/SkySelect.svelte";
     import SkyToggle from "./components/SkyToggle.svelte";
+    import SkyCheck from "./components/SkyCheck.svelte";
 
     /**
      * @typedef Props
-     * @property {"none"| "sharpshooter"| "master"} skilllevel Some documentation
+     * @property {"none"| "sharpshooter"| "master"} skilllevel
      */
 
     /** @type {Props} */
-    let { skilllevel } = $props();
+    let { skilllevel, mod_change = $bindable(0) } = $props();
     const human_body_parts = [
         { id: "head", display: "Kopf", mod: +10 },
         { id: "chest", display: "Brust", mod: +6 },
@@ -40,18 +41,29 @@
         master: "Meisterschütze",
     };
 
+    let aiming_for_part = $state(false);
     let is_human = $state(true);
+
+    $effect(() => {
+        if (aiming_for_part) {
+            mod_change = selectedPart?.mod * factor_map[skilllevel];
+        } else {
+            mod_change = 0;
+        }
+    });
 </script>
 
-<div>
-    {selectedPart?.display} [{selectedPart?.mod}] * {display_map[skilllevel]} [{factor_map[
-        skilllevel
-    ]}] =
-    {selectedPart?.mod * factor_map[skilllevel]}
-</div>
-<SkyToggle labelOn="Mensch" labelOff="Vieh" bind:checked={is_human} />
-{#if is_human}
-    <SkySelect options={human_body_parts} bind:value={selectedPart} />
-{:else}
-    <SkySelect options={animal_body_parts} bind:value={selectedPart} />
-{/if}
+<SkyCheck bind:checked={aiming_for_part} label="Schuss auf Körperteil" />
+{#if aiming_for_part}
+    <div>
+        {selectedPart?.display} [{selectedPart?.mod}] * {display_map[
+            skilllevel
+        ]} [{factor_map[skilllevel]}] = {mod_change}
+    </div>
+    <SkyToggle labelOn="Mensch" labelOff="Vieh" bind:checked={is_human} />
+    {#if is_human}
+        <SkySelect options={human_body_parts} bind:value={selectedPart} />
+    {:else}
+        <SkySelect options={animal_body_parts} bind:value={selectedPart} />
+    {/if}
+{:else}{/if}

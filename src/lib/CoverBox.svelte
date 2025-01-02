@@ -7,6 +7,12 @@
         { id: "three_quarter", display: "Dreiviertel Deckung", sizemod: -2 },
     ];
     let selectedCover = $state();
+
+    let { mod_change = $bindable(0) } = $props();
+
+    $effect(() => {
+        mod_change = selectedCover?.sizemod * -2;
+    });
 </script>
 
 <div>

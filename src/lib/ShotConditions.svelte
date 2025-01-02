@@ -3,7 +3,7 @@
 
     /**
      * @typedef Props
-     * @property {"none"| "sharpshooter"| "master"} skilllevel Some documentation
+     * @property {"none"| "sharpshooter"| "master"} skilllevel
      */
 
     /** @type {Props} */

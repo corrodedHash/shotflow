@@ -4,6 +4,7 @@
     let twilight_sight = $state(false);
     let nightvision = $state(false);
     let distance_sense = $state(false);
+    
     let one_eyed = $state(false);
     let colorblind = $state(false);
     let shortsighted = $state(false);
@@ -21,4 +22,4 @@
 <SkyCheck bind:checked={shortsighted} label="Kurzsichtig" />
 <SkyCheck bind:checked={nightblind} label="Nachtblind" />
 <SkyCheck bind:checked={sharpshooter} label="Scharfschütze" />
-<SkyCheck bind:checked={mastershooter} label="Meiserschütze" />
+<SkyCheck bind:checked={mastershooter} label="Meisterschütze" />

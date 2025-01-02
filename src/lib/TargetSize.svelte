@@ -52,11 +52,16 @@
         },
     ];
     let selectedTargetSize = $state();
+
+
+    let { mod_change = $bindable(0) } = $props();
+
+    $effect(() => {
+        mod_change = selectedTargetSize?.mod;
+    });
 </script>
 
 <div>
-    {selectedTargetSize?.mod}
-    {selectedTargetSize?.extraText}
     <SkySelect options={sizeClasses} bind:value={selectedTargetSize} />
 
 </div>
