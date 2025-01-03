@@ -3,7 +3,7 @@
     import SkyCheck from "../components/SkyCheck.svelte";
     import ModBox from "../components/ModBox.svelte";
 
-    let { onModChange } = $props();
+    let { onModChange, darkvision, nightblind } = $props();
 
     const aerosolClasses = [
         { id: "normal", display: "Normal", sizemod: 0 },
@@ -23,10 +23,34 @@
     let selectedAerosol = $state();
     let selectedLighting = $state();
     let selectedInvisibility = $state(false);
+    let lightingMod = $derived.by(() => {
+        const nightblindMod = nightblind ? 2 : 1;
+        const rawMod = selectedLighting?.sizemod * -2 * nightblindMod;
+
+        if (!rawMod) {
+            return 0;
+        }
+        switch (darkvision) {
+            case "none":
+                return rawMod;
+
+            case "twilight":
+                return Math.round(rawMod * 0.5);
+
+            case "night":
+                if (rawMod <= 5) {
+                    return 0;
+                }
+                return Math.max(rawMod - 5, 0);
+
+            default:
+                throw Error("Oops");
+        }
+    });
     let mod_change = $derived.by(() => {
-        let mod_change =
+        const mod_change =
             selectedAerosol?.sizemod * -2 +
-            selectedLighting?.sizemod * -2 +
+            lightingMod +
             (selectedInvisibility ? 8 : 0);
         return Math.min(8, mod_change);
     });

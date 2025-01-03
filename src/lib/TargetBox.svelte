@@ -13,26 +13,23 @@
     let cover_mod = $state(0);
     let size_mod = $state(0);
     let wind_mod = $state(0);
-    let view_mod = $state(0);
     let distance_mod = $state(0);
 
     $effect(() => {
-        console.log(
-            body_mod,
-            movement_mod,
-            cover_mod,
-            size_mod,
-            wind_mod,
-            view_mod,
-            distance_mod,
-        );
+        // console.log(
+        //     body_mod,
+        //     movement_mod,
+        //     cover_mod,
+        //     size_mod,
+        //     wind_mod,
+        //     distance_mod,
+        // );
         onModChange(
             body_mod +
                 movement_mod +
                 cover_mod +
                 size_mod +
                 wind_mod +
-                view_mod +
                 distance_mod,
         );
     });
@@ -42,11 +39,6 @@
     <TargetDistance
         onModChange={(e) => {
             distance_mod = e;
-        }}
-    />
-    <ViewSituation
-        onModChange={(e) => {
-            view_mod = e;
         }}
     />
     <WindBox
