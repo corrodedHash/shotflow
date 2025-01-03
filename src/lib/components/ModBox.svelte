@@ -16,6 +16,7 @@
         display: flex;
         flex-direction: row;
         margin: 10px;
+        padding: 4px;
         background-color: lightblue;
         --radius: 20px;
         border-radius: var(--radius);
