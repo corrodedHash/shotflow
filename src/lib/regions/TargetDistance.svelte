@@ -1,4 +1,5 @@
 <script>
+    import ModBox from "../components/ModBox.svelte";
     import SkySelect from "../components/SkySelect.svelte";
 
     let { onModChange } = $props();
@@ -17,7 +18,8 @@
     });
 </script>
 
-<div>
-    {selectedTargetDistance?.mod}
+{#snippet modprops()}
     <SkySelect options={distanceClasses} bind:value={selectedTargetDistance} />
-</div>
+{/snippet}
+
+<ModBox {modprops} result={selectedTargetDistance?.mod} />

@@ -1,4 +1,5 @@
 <script>
+    import ModBox from "../components/ModBox.svelte";
     import SkyCheck from "../components/SkyCheck.svelte";
     import SkySelect from "../components/SkySelect.svelte";
 
@@ -12,7 +13,8 @@
     let unpreparedHorse = $state(false);
     let selectedHorseSpeed = $state();
     let mod_change = $derived.by(() => {
-        let mod_change = selectedHorseSpeed?.mod + (unpreparedHorse ? +4 : 0);
+        const horseMod = unpreparedHorse ? +4 : 0;
+        let mod_change = selectedHorseSpeed?.mod + horseMod;
         if (!is_shooting) {
             mod_change = Math.round(mod_change / 2);
         }
@@ -23,11 +25,11 @@
     });
 </script>
 
-<div>
-    {mod_change}
+{#snippet modprops()}
     <SkySelect options={horseSpeedClass} bind:value={selectedHorseSpeed} />
     <SkyCheck
         bind:checked={unpreparedHorse}
         label="Ohne Sattel und Steigbügel"
     />
-</div>
+{/snippet}
+<ModBox {modprops} result={mod_change} />

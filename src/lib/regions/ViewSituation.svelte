@@ -1,6 +1,7 @@
 <script>
     import SkySelect from "../components/SkySelect.svelte";
     import SkyCheck from "../components/SkyCheck.svelte";
+    import ModBox from "../components/ModBox.svelte";
 
     let { onModChange } = $props();
 
@@ -22,22 +23,21 @@
     let selectedAerosol = $state();
     let selectedLighting = $state();
     let selectedInvisibility = $state(false);
-
-    $effect(() => {
+    let mod_change = $derived.by(() => {
         let mod_change =
             selectedAerosol?.sizemod * -2 +
             selectedLighting?.sizemod * -2 +
             (selectedInvisibility ? 8 : 0);
-        mod_change = Math.min(8, mod_change);
+        return Math.min(8, mod_change);
+    });
+    $effect(() => {
         onModChange(mod_change);
     });
 </script>
 
-<div>
-    {selectedAerosol?.sizemod * -2}
-    {selectedLighting?.sizemod * -2}
-    {selectedInvisibility}
+{#snippet modprops()}
     <SkySelect options={aerosolClasses} bind:value={selectedAerosol} />
     <SkySelect options={lightingClasses} bind:value={selectedLighting} />
     <SkyCheck bind:checked={selectedInvisibility} label="Unsichtbar" />
-</div>
+{/snippet}
+<ModBox result={mod_change} {modprops} />

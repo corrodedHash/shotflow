@@ -1,4 +1,5 @@
 <script>
+    import ModBox from "../components/ModBox.svelte";
     import SkySelect from "../components/SkySelect.svelte";
 
     let { onModChange } = $props();
@@ -13,20 +14,21 @@
     let fighting_crowd_hand = $state(0);
     let fighting_crowd_sword = $state(0);
     let selectedMovement = $state();
-
-    $effect(() => {
+    let mod_change = $derived.by(() => {
         let mod_change;
         if (fighting_crowd_hand > 0 || fighting_crowd_sword > 0) {
             mod_change = fighting_crowd_hand * 3 + fighting_crowd_sword * 2;
         } else {
             mod_change = selectedMovement?.sizemod * -2;
         }
+        return mod_change;
+    });
+    $effect(() => {
         onModChange(mod_change);
     });
 </script>
 
-<div>
-    {selectedMovement?.sizemod * -2}
+{#snippet modprops()}
     <SkySelect options={movementClass} bind:value={selectedMovement} />
     <div>
         Handgemenge ({fighting_crowd_hand * 3})
@@ -36,4 +38,6 @@
         Schwert-/Speerkampfgemenge ({fighting_crowd_sword * 2})
         <input type="number" bind:value={fighting_crowd_sword} />
     </div>
-</div>
+{/snippet}
+
+<ModBox result={mod_change} {modprops} />

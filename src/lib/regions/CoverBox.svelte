@@ -1,4 +1,5 @@
 <script>
+    import ModBox from "../components/ModBox.svelte";
     import SkySelect from "../components/SkySelect.svelte";
 
     const coverClasses = [
@@ -15,7 +16,8 @@
     });
 </script>
 
-<div>
-    {selectedCover?.sizemod * -2}
+{#snippet modprops()}
     <SkySelect options={coverClasses} bind:value={selectedCover} />
-</div>
+{/snippet}
+
+<ModBox result={selectedCover?.sizemod * -2} {modprops} />

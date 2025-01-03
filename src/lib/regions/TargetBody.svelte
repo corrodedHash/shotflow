@@ -2,6 +2,7 @@
     import SkySelect from "../components/SkySelect.svelte";
     import SkyToggle from "../components/SkyToggle.svelte";
     import SkyCheck from "../components/SkyCheck.svelte";
+    import ModBox from "../components/ModBox.svelte";
 
     /**
      * @typedef Props
@@ -55,17 +56,21 @@
     });
 </script>
 
-<SkyCheck bind:checked={aiming_for_part} label="Schuss auf Körperteil" />
-{#if aiming_for_part}
-    <div>
+{#snippet modprops()}
+    <SkyCheck bind:checked={aiming_for_part} label="Schuss auf Körperteil" />
+    {#if aiming_for_part}
+        <!-- <div>
         {selectedPart?.display} [{selectedPart?.mod}] * {display_map[
             skilllevel
         ]} [{factor_map[skilllevel].toFixed(2)}] = {mod_change}
-    </div>
-    <SkyToggle labelOn="Mensch" labelOff="Vieh" bind:checked={is_human} />
-    {#if is_human}
-        <SkySelect options={human_body_parts} bind:value={selectedPart} />
-    {:else}
-        <SkySelect options={animal_body_parts} bind:value={selectedPart} />
+    </div> -->
+        <SkyToggle labelOn="Mensch" labelOff="Vieh" bind:checked={is_human} />
+        {#if is_human}
+            <SkySelect options={human_body_parts} bind:value={selectedPart} />
+        {:else}
+            <SkySelect options={animal_body_parts} bind:value={selectedPart} />
+        {/if}
     {/if}
-{/if}
+{/snippet}
+
+<ModBox result={mod_change} {modprops} />

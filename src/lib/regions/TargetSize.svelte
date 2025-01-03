@@ -1,4 +1,5 @@
 <script>
+    import ModBox from "../components/ModBox.svelte";
     import SkySelect from "../components/SkySelect.svelte";
 
     const sizeClasses = [
@@ -60,7 +61,9 @@
     });
 </script>
 
-<div>
-    {selectedTargetSize?.mod}
+{#snippet modprops()}
     <SkySelect options={sizeClasses} bind:value={selectedTargetSize} />
-</div>
+    <span>{selectedTargetSize?.extraText}</span>
+{/snippet}
+
+<ModBox result={selectedTargetSize?.mod} {modprops} />

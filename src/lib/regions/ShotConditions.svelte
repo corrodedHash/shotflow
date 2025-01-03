@@ -1,4 +1,5 @@
 <script>
+    import ModBox from "../components/ModBox.svelte";
     import SkyCheck from "../components/SkyCheck.svelte";
 
     /**
@@ -37,12 +38,12 @@
     });
 </script>
 
-<div>
-    {mod_change}
+{#snippet modprops()}
     <SkyCheck bind:checked={speed_shot} label="Schnellschuss" />
     <SkyCheck bind:checked={second_shot} label="Zweiter Schuss in Kampfrunde" />
     <div>
         Aktionen Zielen
         <input type="number" bind:value={aiming} />
     </div>
-</div>
+{/snippet}
+<ModBox result={mod_change} {modprops} />
